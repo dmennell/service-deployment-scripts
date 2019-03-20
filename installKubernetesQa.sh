@@ -21,7 +21,7 @@ dcos security org users grant $1 dcos:mesos:master:reservation:role:slave_public
 dcos security org users grant $1 dcos:mesos:master:volume:role:slave_public/$1-role create
 dcos security org users grant $1 dcos:mesos:master:framework:role:slave_public read
 dcos security org users grant $1 dcos:mesos:agent:framework:role:slave_public read
-echo -e "\033[0;32mDeploying Development Kubernetes Cluster $1\033[0m"
+echo -e "\033[0;32mDeploying QA Kubernetes Cluster $1\033[0m"
 cat > $1.json << EOF
 {
   "service": {
@@ -42,7 +42,7 @@ cat > $1.json << EOF
     },
     "control_plane_placement": "[[\"hostname\", \"UNIQUE\"]]",
     "control_plane_pre_reserved_role": "*",
-    "private_node_count": 1,
+    "private_node_count": 3,
     "private_reserved_resources": {
       "kube_cpus": 2,
       "kube_mem": 2048,
@@ -64,7 +64,7 @@ cat > $1.json << EOF
     },
     "public_node_placement": "",
     "public_node_pre_reserved_role": "slave_public",
-    "public_node_count": 1
+    "public_node_count": 0
   },
   "calico": {
     "calico_ipv4pool_cidr": "192.168.0.0/16",
